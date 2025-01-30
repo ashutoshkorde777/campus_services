@@ -14,7 +14,7 @@ exports.getServices = async (req, res) => {
 // Add a new service
 exports.addService = async (req, res) => {
   try {
-    const { customId, name, description, price, stock, requiresFiles } = req.body;
+    const { customId, name, description, price, stock, requiresFiles, category } = req.body;
     const service = new Service({
       customId,
       name,
@@ -22,6 +22,7 @@ exports.addService = async (req, res) => {
       price,
       stock,
       requiresFiles, // Include the new field
+      category, // Include the new field
       providerId: req.user._id, // Get the provider ID from the logged-in user
     });
     await service.save();
@@ -34,10 +35,10 @@ exports.addService = async (req, res) => {
 // Update a service
 exports.updateService = async (req, res) => {
   try {
-    const { id, name, description, price, stock, requiresFiles } = req.body;
+    const { customId, name, description, price, stock, requiresFiles, category } = req.body;
 
-    // Find the service by ID
-    const service = await Service.findById(id);
+    // Find the service by custom ID
+    const service = await Service.findOne({ customId });
 
     if (!service) {
       return res.status(404).json({ message: 'Service not found' });
@@ -54,6 +55,7 @@ exports.updateService = async (req, res) => {
     service.price = price || service.price;
     service.stock = stock || service.stock;
     service.requiresFiles = requiresFiles !== undefined ? requiresFiles : service.requiresFiles;
+    service.category = category || service.category;
 
     // Save the updated service
     const updatedService = await service.save();
@@ -71,7 +73,8 @@ exports.getAllServiceProviders = async (req, res) => {
       return res.status(403).json({ message: 'Access denied. Only students can view service providers.' });
     }
 
-    const serviceProviders = await User.find({ userType: 'ServiceProvider' }).select('-password');
+    // Find all service providers and select only the name and businessDescription fields
+    const serviceProviders = await User.find({ userType: 'ServiceProvider' }).select('name businessDescription');
     res.json(serviceProviders);
   } catch (err) {
     res.status(500).json({ message: err.message });
