@@ -1,0 +1,105 @@
+/* Centered Layout */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f4f6f9;
+  }
+  
+  /* Main Box containing Admin & Student Login */
+  .main-login-box {
+    display: flex;
+    gap: 50px;
+    text-align: center;
+  }
+  
+  /* Individual Login Sections */
+  .login-section {
+    width: 350px;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .login-section:hover {
+    transform: scale(1.05);
+    background: #f8f8f8;
+  }
+  
+  /* Different Borders for Sections */
+  .admin {
+    border-top: 5px solid #3a7ca5;
+  }
+  
+  .student {
+    border-top: 5px solid #5a9fcf;
+  }
+  
+  /* Logo Styling */
+  .login-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+  }
+  
+  /* Student Login Expanding Section */
+  .student-login-box {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Student & Vendor Login Buttons */
+  .student-vendor-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .student-vendor-buttons button {
+    padding: 12px 18px;
+    border: none;
+    background: #5a9fcf;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .student-vendor-buttons button:hover {
+    background: #3a7ca5;
+  }
+  
+  /* Hide the Student & Vendor Login Boxes initially */
+  .hidden {
+    display: none;
+  }
+  
+  /* Business Description */
+  .auth-box textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+  }
+  
+  /* Business Photo Upload */
+  .auth-box input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
