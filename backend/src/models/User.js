@@ -8,11 +8,9 @@ const userSchema = new mongoose.Schema({
     enum: ['Student', 'ServiceProvider']
   },
   prn: {
-    type: Number,
+    type: String,
     unique: true,
-    sparse: true,// Only enforce uniqueness if the field is not null
-    minlength: 8,
-    maxlength: 9
+    sparse: true // Only enforce uniqueness if the field is not null
   },
   email: {
     type: String,
@@ -28,11 +26,13 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   phone: {
-    type: Number,
+    type: String,
     required: true,
-    unique: true,
-    minlength: 10,
-    maxlength: 10
+    unique: true
+  },
+  businessDescription: {
+    type: String,
+    required: function() { return this.userType === 'ServiceProvider'; } // Required only for Service Providers
   }
 });
 
