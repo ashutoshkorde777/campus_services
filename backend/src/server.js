@@ -1,5 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors'); // Import cors
+const path = require('path'); // Import path
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const serviceProviderRoutes = require('./routes/serviceProviderRoutes');
@@ -10,7 +12,11 @@ dotenv.config();
 connectDB();
 
 const app = express();
+app.use(cors()); // Use cors middleware
 app.use(express.json()); // Middleware for JSON parsing
+
+// Serve static files from the uploads directory
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use('/api/users', userRoutes);
 app.use('/api/service-provider', serviceProviderRoutes);

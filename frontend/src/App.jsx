@@ -21,6 +21,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
+        
         <Routes>
           {/* Authentication Routes */}
           <Route path="/" element={<LoginPage />} />
