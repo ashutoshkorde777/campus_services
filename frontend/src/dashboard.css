@@ -1,17 +1,4 @@
-/* src/App.css */
-.App {
-  font-family: Arial, sans-serif;
-  display: flex;
-  height: 100vh;  /* Full height of the screen */
-  background-color: #f0f8ff; /* Light blue background */
-  flex-direction: column; /* Stack navbar and sidebar */
-}
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
+/* src/dashboard.css */
 .dashboard-container {
   display: flex;
   height: 100vh; /* Full height of the screen */
@@ -19,19 +6,22 @@ html, body, #root {
 
 .content {
   margin-left: 50px; /* Sidebar collapsed width */
-  padding: 20px; /* Adjust padding */
+  padding: 20px;
+  padding-top: 70px; /* Space for the navbar */
   background-color: #e6f2ff; /* Light Blue background for content */
   flex-grow: 1; /* Ensures this section takes the remaining space */
   overflow-y: auto; /* Makes content scrollable if needed */
+  position: relative; /* Needed for absolute positioning of the switch */
   transition: margin-left 0.3s ease; /* Smooth transition for when sidebar expands */
 }
 
-/* Content area shifts when sidebar is expanded */
-.sidebar:hover + .content {
-  margin-left: 200px; /* Sidebar expanded width */
+/* Switch container to position it in the upper-right corner */
+.switch-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
-/* Style for header inside content */
 h1 {
   font-size: 28px;
   color: #333333; /* Dark text for contrast */
