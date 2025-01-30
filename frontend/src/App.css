@@ -6,11 +6,11 @@
   background-color: #f0f8ff; /* Light blue background */
   flex-direction: column; /* Stack navbar and sidebar */
 }
-html, body, #root {
+/* html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-}
+} */
 
 .dashboard-container {
   display: flex;
@@ -20,7 +20,6 @@ html, body, #root {
 .content {
   margin-left: 50px; /* Sidebar collapsed width */
   padding: 20px; /* Adjust padding */
-  background-color: #e6f2ff; /* Light Blue background for content */
   flex-grow: 1; /* Ensures this section takes the remaining space */
   overflow-y: auto; /* Makes content scrollable if needed */
   transition: margin-left 0.3s ease; /* Smooth transition for when sidebar expands */

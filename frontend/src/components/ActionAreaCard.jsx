@@ -19,7 +19,7 @@ export default function ActionAreaCard() {
         },
         cursor: "pointer",
       }}
-      onClick={() => navigate("/queue")}
+      onClick={() => navigate("/ccproducts")}
     >
       <CardActionArea>
         {/* Image */}
