@@ -1,17 +1,16 @@
 // src/Sidebar.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';  // Import Link for navigation
 import './sidebar.css';  // Import sidebar styles
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      {/* The links and content */}
+      {/* Sidebar Links */}
       <ul className="sidebar-links">
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Menu</a></li>
-        <li><a href="#">Sales</a></li>
-        <li><a href="#"></a></li>
-        <li><a href="#"></a></li>
+        <li><Link to="/">Services</Link></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="#">Logout</a></li>
       </ul>
     </div>
   );
