@@ -8,6 +8,8 @@ import './App.css';
 import './navbar.css';
 import './sidebar.css';
 import './dashboard.css';
+import './canteen.css'; 
+import './cc.css'; 
 
 function App() {
   return (
