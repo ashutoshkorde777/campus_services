@@ -15,6 +15,8 @@ exports.getServices = async (req, res) => {
 exports.addService = async (req, res) => {
   try {
     const { customId, name, description, price, stock, requiresFiles, category } = req.body;
+    const image = req.file ? req.file.path : null;
+
     const service = new Service({
       customId,
       name,
@@ -23,6 +25,7 @@ exports.addService = async (req, res) => {
       stock,
       requiresFiles, // Include the new field
       category, // Include the new field
+      image, // Include the image path
       providerId: req.user._id, // Get the provider ID from the logged-in user
     });
     await service.save();
@@ -36,6 +39,7 @@ exports.addService = async (req, res) => {
 exports.updateService = async (req, res) => {
   try {
     const { customId, name, description, price, stock, requiresFiles, category } = req.body;
+    const image = req.file ? req.file.path : null;
 
     // Find the service by custom ID
     const service = await Service.findOne({ customId });
@@ -56,6 +60,7 @@ exports.updateService = async (req, res) => {
     service.stock = stock || service.stock;
     service.requiresFiles = requiresFiles !== undefined ? requiresFiles : service.requiresFiles;
     service.category = category || service.category;
+    service.image = image || service.image;
 
     // Save the updated service
     const updatedService = await service.save();
