@@ -1,17 +1,4 @@
-/* src/App.css */
-.App {
-  font-family: Arial, sans-serif;
-  display: flex;
-  height: 100vh;  /* Full height of the screen */
-  background-color: #f0f8ff; /* Light blue background */
-  flex-direction: column; /* Stack navbar and sidebar */
-}
-html, body, #root {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
+/* src/dashboard.css */
 .dashboard-container {
   display: flex;
   height: 100vh; /* Full height of the screen */
@@ -19,8 +6,9 @@ html, body, #root {
 
 .content {
   margin-left: 50px; /* Sidebar collapsed width */
-  padding: 20px; /* Adjust padding */
-  background-color: #e6f2ff; /* Light Blue background for content */
+  padding: 20px;
+  padding-top: 70px; /* Space for the navbar */
+  background-color: #d7f0fc; /* Light Blue background for content */
   flex-grow: 1; /* Ensures this section takes the remaining space */
   overflow-y: auto; /* Makes content scrollable if needed */
   transition: margin-left 0.3s ease; /* Smooth transition for when sidebar expands */
@@ -36,3 +24,15 @@ h1 {
   font-size: 28px;
   color: #333333; /* Dark text for contrast */
 }
+
+
+/* src/dashboard.css */
+.card-container {
+  display: flex;
+  gap: 20px; /* Space between cards */
+  margin-top: 30px; /* Increased margin to push cards below navbar */
+  flex-wrap: wrap; /* Wrap cards to the next line if needed */
+}
+
+
+/* You can adjust the card styles based on your needs */

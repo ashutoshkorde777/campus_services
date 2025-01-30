@@ -1,0 +1,64 @@
+/* src/sidebar.css */
+
+/* Sidebar background color */
+.sidebar {
+    background-color: #2e83d8; /* Dark Blue */
+    color: white;
+    width: 50px; /* Initially collapsed width */
+    height: 100vh; /* Full height */
+    padding: 10px 5px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease; /* Smooth transition for resizing */
+    z-index: 999;
+    overflow: hidden; /* Hide overflowing content when collapsed */
+  }
+  
+  /* Sidebar expands when hovered */
+  .sidebar:hover {
+    width: 200px; /* Expands sidebar */
+    padding: 20px;
+  }
+  
+  /* Sidebar links styling */
+  .sidebar-links {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+  
+  .sidebar-links li {
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  /* Initially, make links invisible when the sidebar is collapsed */
+  .sidebar:not(:hover) .sidebar-links {
+    opacity: 0;
+  }
+  
+  /* Sidebar links visible when expanded */
+  .sidebar:hover .sidebar-links {
+    opacity: 1;
+  }
+  
+  /* Sidebar links styles */
+  .sidebar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px 0; /* Adds padding for clickable area */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover effect for links */
+  .sidebar-links a:hover {
+    background-color: #0056b3; /* Bright Blue on hover */
+    padding-left: 10px; /* Optional: slight indent on hover */
+  }
+  

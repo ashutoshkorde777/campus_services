@@ -9,7 +9,8 @@ const generateToken = (id) => {
 
 // Register User
 exports.registerUser = async (req, res) => {
-  const { userType, prn, email, name, password, phone } = req.body;
+  const { userType, prn, email, name, password, phone, businessDescription } = req.body;
+  const photo = req.file ? req.file.path : null;
 
   try {
     const userExists = await User.findOne({ email });
@@ -24,7 +25,9 @@ exports.registerUser = async (req, res) => {
       email,
       name,
       password,
-      phone
+      phone,
+      businessDescription: userType === 'ServiceProvider' ? businessDescription : null,
+      photo: userType === 'ServiceProvider' ? photo : null
     });
 
     if (user) {
@@ -34,6 +37,8 @@ exports.registerUser = async (req, res) => {
         email: user.email,
         name: user.name,
         phone: user.phone,
+        businessDescription: user.businessDescription,
+        photo: user.photo,
         token: generateToken(user._id)
       });
     } else {

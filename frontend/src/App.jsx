@@ -1,49 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { Grid, Typography, Box, Paper, IconButton } from "@mui/material";
-import FoodCard from "./Card";
-import DeleteIcon from "@mui/icons-material/Delete";
-import "./App.css";
-import axios from "axios";
-import Product from "./Products";
-
-
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 
 function App() {
-  const [cart, setCart] = useState([]);
-  const [services, setServices] = useState([]);
-
-  useEffect(() => {
-    // Fetch services from the backend
-    axios.get("http://localhost:5000/api/service-provider/services", {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}` // Adjust this line based on your authentication method
-      }
-    })
-    .then(response => {
-      console.log("Services fetched successfully!", response.data);
-      setServices(response.data);
-    })
-    .catch(error => {
-      console.error("There was an error fetching the services!", error);
-    });
-  }, []);
-
-  // Function to handle adding items to cart
-  const handleAddToCart = (item) => {
-    setCart((prevCart) => [...prevCart, item]);
-  };
-
-  // Function to remove item from cart
-  const handleRemoveFromCart = (index) => {
-    setCart((prevCart) => prevCart.filter((_, i) => i !== index));
-  };
-
-  // Calculate total price
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const [count, setCount] = useState(0)
 
   return (
-    <Product />
-  );
+    <>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.jsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </>
+  )
 }
 
 export default App;
