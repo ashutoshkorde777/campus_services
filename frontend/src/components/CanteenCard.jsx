@@ -11,7 +11,7 @@ export default function CanteenCard() {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }} onClick={() => navigate('/canteen')} style={{ cursor: 'pointer' }}>
+    <Card sx={{ maxWidth: 345 }} onClick={() => navigate('/canteenProduct')} style={{ cursor: 'pointer' }}>
       <CardActionArea>
         <CardMedia
           component="img"

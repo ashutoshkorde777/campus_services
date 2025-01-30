@@ -10,6 +10,7 @@ import './sidebar.css';
 import './dashboard.css';
 import './canteen.css'; 
 import './cc.css'; 
+import Product from './Product'; // Import the Product page
 
 function App() {
   return (
@@ -17,8 +18,11 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/canteen" element={<Canteen />} />  {/* Add the Canteen Route */}
+          <Route path="/canteen" element={<Canteen />} />  Add the Canteen Route
           <Route path="/cc" element={<CC />} />  {/* Add the CC Route */}
+          <Route path="/canteenProduct" element={<Product />} />  {/* Add the CC Route */}
+          
+          
         </Routes>
       </div>
     </Router>
