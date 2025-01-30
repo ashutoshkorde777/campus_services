@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderController');
 
-// Create a new order
-router.post('/', orderController.createOrder);
+// Define your order routes here
+router.get('/', (req, res) => {
+  res.send('Order route');
+});
 
 // Get all orders for a student
 router.get('/student/:studentId', orderController.getOrdersByStudent);
