@@ -1,17 +1,17 @@
 /* src/dashboard.css */
 .dashboard-container {
   display: flex;
-  height: 100vh; /* Full height of the screen */
+  height: 1000vh;
 }
 
 .content {
   margin-left: 50px; /* Sidebar collapsed width */
   padding: 20px;
-  padding-top: 70px; /* Space for the navbar */
+  margin-top: 50px; /* This will ensure content starts below the navbar */
   background-color: #d7f0fc; /* Light Blue background for content */
   flex-grow: 1; /* Ensures this section takes the remaining space */
-  overflow-y: auto; /* Makes content scrollable if needed */
-  transition: margin-left 0.3s ease; /* Smooth transition for when sidebar expands */
+  overflow-y: auto;
+  transition: margin-left 0.3s ease;
 }
 
 /* Content area shifts when sidebar is expanded */
@@ -19,20 +19,14 @@
   margin-left: 200px; /* Sidebar expanded width */
 }
 
-/* Style for header inside content */
 h1 {
   font-size: 28px;
   color: #333333; /* Dark text for contrast */
 }
 
-
-/* src/dashboard.css */
 .card-container {
   display: flex;
-  gap: 20px; /* Space between cards */
-  margin-top: 30px; /* Increased margin to push cards below navbar */
-  flex-wrap: wrap; /* Wrap cards to the next line if needed */
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
 }
-
-
-/* You can adjust the card styles based on your needs */
