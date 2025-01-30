@@ -6,18 +6,7 @@ import "./App.css";
 import axios from "axios";
 import Product from "./Products";
 
-// Sample food items
-const foodItems = [
-  { id: 1, name: "Pizza", price: 250, image: "./assets/pizza.jpg" },
-  { id: 2, name: "Burger", price: 120, image: "./assets/burger.jpg" },
-  { id: 3, name: "Pasta", price: 180, image: "./assets/pasta.jpg" },
-  { id: 4, name: "Salad", price: 100, image: "./assets/salad.jpg" },
-  { id: 1, name: "Pizza", price: 250, image: "./assets/pizza.jpg" },
-  { id: 2, name: "Burger", price: 120, image: "./assets/burger.jpg" },
-  { id: 3, name: "Pasta", price: 180, image: "./assets/pasta.jpg" },
-  { id: 4, name: "Salad", price: 100, image: "./assets/salad.jpg" },
-  
-];
+
 
 function App() {
   const [cart, setCart] = useState([]);
