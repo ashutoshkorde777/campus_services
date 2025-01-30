@@ -1,4 +1,5 @@
 const Service = require('../models/service');
+const User = require('../models/User');
 
 // Get all services for a service provider
 exports.getServices = async (req, res) => {
@@ -43,5 +44,20 @@ exports.updateService = async (req, res) => {
     res.json(service);
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+};
+
+// Get all service providers
+exports.getAllServiceProviders = async (req, res) => {
+  try {
+    // Check if the logged-in user is a student
+    if (req.user.userType !== 'Student') {
+      return res.status(403).json({ message: 'Access denied. Only students can view service providers.' });
+    }
+
+    const serviceProviders = await User.find({ userType: 'ServiceProvider' }).select('-password');
+    res.json(serviceProviders);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
