@@ -8,21 +8,31 @@
   margin-left: 50px; /* Sidebar collapsed width */
   padding: 20px;
   padding-top: 70px; /* Space for the navbar */
-  background-color: #e6f2ff; /* Light Blue background for content */
+  background-color: #d7f0fc; /* Light Blue background for content */
   flex-grow: 1; /* Ensures this section takes the remaining space */
   overflow-y: auto; /* Makes content scrollable if needed */
-  position: relative; /* Needed for absolute positioning of the switch */
   transition: margin-left 0.3s ease; /* Smooth transition for when sidebar expands */
 }
 
-/* Switch container to position it in the upper-right corner */
-.switch-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+/* Content area shifts when sidebar is expanded */
+.sidebar:hover + .content {
+  margin-left: 200px; /* Sidebar expanded width */
 }
 
+/* Style for header inside content */
 h1 {
   font-size: 28px;
   color: #333333; /* Dark text for contrast */
 }
+
+
+/* src/dashboard.css */
+.card-container {
+  display: flex;
+  gap: 20px; /* Space between cards */
+  margin-top: 30px; /* Increased margin to push cards below navbar */
+  flex-wrap: wrap; /* Wrap cards to the next line if needed */
+}
+
+
+/* You can adjust the card styles based on your needs */

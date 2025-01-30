@@ -12,6 +12,7 @@ const serviceSchema = new mongoose.Schema({
   image: { type: String }, // New field to store the image path
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  image: { type: String, required: true }, // URL or path to the image
 });
 
 module.exports = mongoose.model('Service', serviceSchema);

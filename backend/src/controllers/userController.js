@@ -11,10 +11,6 @@ const getAllUsers = async (req, res) => {
 };
 
 
-
-
-
-
 // Create a new user
 const createUser = async (req, res) => {
   try {
@@ -119,3 +115,4 @@ const deleteUser = async (req, res) => {
 
 
 module.exports = { getAllUsers, createUser, getUser, updateUser, deleteUser };
+

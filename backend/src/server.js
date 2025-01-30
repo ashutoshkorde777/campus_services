@@ -14,6 +14,7 @@ app.use(express.json()); // Middleware for JSON parsing
 app.use('/api/users', userRoutes);
 app.use('/api/service-provider', serviceProviderRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 

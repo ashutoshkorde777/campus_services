@@ -70,6 +70,8 @@ exports.updateService = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
+=======
 // Get all service providers
 exports.getAllServiceProviders = async (req, res) => {
   try {
@@ -85,3 +87,4 @@ exports.getAllServiceProviders = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+>>>>>>> 0379f9b711e12579c3930bb038e8c09a12ea7396
