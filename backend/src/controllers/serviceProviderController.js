@@ -4,7 +4,7 @@ const User = require('../models/User');
 // Get all services for a service provider
 exports.getServices = async (req, res) => {
   try {
-    const services = await Service.find({ providerId: req.user.id });
+    const services = await Service.find({ providerId: req.user._id });
     res.json(services);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -14,13 +14,15 @@ exports.getServices = async (req, res) => {
 // Add a new service
 exports.addService = async (req, res) => {
   try {
-    const { name, description, price, stock } = req.body;
+    const { customId, name, description, price, stock, requiresFiles } = req.body;
     const service = new Service({
+      customId,
       name,
       description,
       price,
       stock,
-      providerId: req.user.id, // Get the provider ID from the logged-in user
+      requiresFiles, // Include the new field
+      providerId: req.user._id, // Get the provider ID from the logged-in user
     });
     await service.save();
     res.status(201).json(service);
@@ -29,19 +31,33 @@ exports.addService = async (req, res) => {
   }
 };
 
-// Update a service (service charge, stock)
+// Update a service
 exports.updateService = async (req, res) => {
   try {
-    const { serviceId, price, stock } = req.body;
-    const service = await Service.findOneAndUpdate(
-      { _id: serviceId, providerId: req.user.id },
-      { price, stock, updatedAt: Date.now() },
-      { new: true }
-    );
+    const { id, name, description, price, stock, requiresFiles } = req.body;
+
+    // Find the service by ID
+    const service = await Service.findById(id);
+
     if (!service) {
       return res.status(404).json({ message: 'Service not found' });
     }
-    res.json(service);
+
+    // Ensure that only the service provider who created the service can update it
+    if (service.providerId.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: 'Not authorized to update this service' });
+    }
+
+    // Update the service fields
+    service.name = name || service.name;
+    service.description = description || service.description;
+    service.price = price || service.price;
+    service.stock = stock || service.stock;
+    service.requiresFiles = requiresFiles !== undefined ? requiresFiles : service.requiresFiles;
+
+    // Save the updated service
+    const updatedService = await service.save();
+    res.json(updatedService);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

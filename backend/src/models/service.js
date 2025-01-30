@@ -4,8 +4,9 @@ const serviceSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true }, // The charge for the service
-  stock: { type: String, required: true }, 
+  stock: { type: String, required: true },
   providerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Linked to the service provider
+  requiresFiles: { type: Boolean, default: false }, // New field to specify if the service requires files
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
