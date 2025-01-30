@@ -1,30 +1,47 @@
-// src/ActionAreaCard.jsx
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import CardActionArea from '@mui/material/CardActionArea';
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardMedia, Typography, CardActionArea, Box } from "@mui/material";
+import cc from "../assets/cc.png";
 
 export default function ActionAreaCard() {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }} onClick={() => navigate('/queue')} style={{ cursor: 'pointer' }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        borderRadius: 3, // Smooth rounded corners
+        boxShadow: 3,
+        transition: "0.3s",
+        "&:hover": {
+          boxShadow: 6, // Elevate card on hover
+          transform: "scale(1.03)", // Slight zoom effect
+        },
+        cursor: "pointer",
+      }}
+      onClick={() => navigate("/queue")}
+    >
       <CardActionArea>
+        {/* Image */}
         <CardMedia
           component="img"
-          height="300"
-          image="/xerox.jpeg"  // Ensure the image path is correct (use relative path based on public folder)
+          height="250"
+          image={cc}
           alt="Xerox"
+          sx={{
+            objectFit: "cover", // Ensures the image is well-fitted
+            borderTopLeftRadius: 12,
+            borderTopRightRadius: 12,
+          }}
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+        
+        {/* Card Content */}
+        <CardContent sx={{ textAlign: "center", p: 2 }}>
+          <Typography variant="h5" fontWeight="bold" sx={{ color: "#1976D2" }}>
             CC
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            You can order your xerox here.
+          <Typography variant="body2" color="text.secondary">
+            Get Your Stationary
           </Typography>
         </CardContent>
       </CardActionArea>
