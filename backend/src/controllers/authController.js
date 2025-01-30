@@ -52,11 +52,14 @@ exports.registerUser = async (req, res) => {
 // Login User
 exports.loginUser = async (req, res) => {
   const { userType, identifier, password } = req.body;
+  console.log(req.body);
 
   try {
     const user = await User.findOne(
       userType === 'Student' ? { prn: identifier } : { phone: identifier }
     );
+
+    console.log(user);
 
     if (user && (await user.matchPassword(password))) {
       res.json({

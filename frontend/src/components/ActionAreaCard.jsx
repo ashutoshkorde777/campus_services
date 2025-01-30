@@ -11,7 +11,7 @@ export default function ActionAreaCard() {
   const navigate = useNavigate();
 
   return (
-    <Card sx={{ maxWidth: 345 }} onClick={() => navigate('/cc')} style={{ cursor: 'pointer' }}>
+    <Card sx={{ maxWidth: 345 }} onClick={() => navigate('/queue')} style={{ cursor: 'pointer' }}>
       <CardActionArea>
         <CardMedia
           component="img"

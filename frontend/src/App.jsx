@@ -10,6 +10,7 @@ import Dashboard from "./dashboard";
 import CC from "./cc";
 import Canteen from "./Canteen";
 import Product from './Product'; // Import the Product page
+import Queue from "./Queue";
 
 import "./App.css";
 import "./navbar.css";
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/canteen" element={<Canteen />} />
           <Route path="/cc" element={<CC />} />
           <Route path="/canteenProduct" element={<Product />} />  {/* Add the CC Route */}
+          <Route path="/queue" element={<Queue />} />
         </Routes>
       </div>
     </Router>
