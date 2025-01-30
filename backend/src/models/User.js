@@ -33,6 +33,9 @@ const userSchema = new mongoose.Schema({
   businessDescription: {
     type: String,
     required: function() { return this.userType === 'ServiceProvider'; } // Required only for Service Providers
+  },
+  photo: {
+    type: String // Field to store the photo path
   }
 });
 

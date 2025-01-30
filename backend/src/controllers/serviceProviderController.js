@@ -78,8 +78,8 @@ exports.getAllServiceProviders = async (req, res) => {
       return res.status(403).json({ message: 'Access denied. Only students can view service providers.' });
     }
 
-    // Find all service providers and select only the name and businessDescription fields
-    const serviceProviders = await User.find({ userType: 'ServiceProvider' }).select('name businessDescription');
+    // Find all service providers and select only the name, businessDescription, and photo fields
+    const serviceProviders = await User.find({ userType: 'ServiceProvider' }).select('name businessDescription photo');
     res.json(serviceProviders);
   } catch (err) {
     res.status(500).json({ message: err.message });
