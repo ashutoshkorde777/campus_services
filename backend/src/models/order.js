@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  serviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: true },
+  listOfProducts: [
+    {
+      serviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: true },
+      quantity: { type: Number, required: true }
+    }
+  ],
   studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   serviceProviderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Added field
   orderDate: { type: Date, default: Date.now },
