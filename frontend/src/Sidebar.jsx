@@ -91,7 +91,7 @@ const Sidebar = () => {
       children: [
         {
           name: 'Stationary Orders',
-          slug: '/queue',
+          slug: '/stationeryqueue',
           access: '1',
         },
         {
@@ -120,6 +120,12 @@ const Sidebar = () => {
       icon: 'BsTicket',
       access: '1',
       children: [
+        {
+          name: 'Logout',
+          slug: '/',
+          access: '1',
+        },
+
       ],
     },
     
@@ -179,6 +185,7 @@ const Sidebar = () => {
         </div>
       </div>
       <div>
+        
         
       </div>
     </div>

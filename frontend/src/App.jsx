@@ -15,6 +15,7 @@ import Ccproduct from "./Ccproduct"; // Import the CC Products page
 import PrintService from './PrintService';
 import Vendordashboard from './Vendordashboard';
 import ServicesQueue from "./ServicesQueue";
+import Stationeryqueue from "./Stationeryqueue";
 
 import "./App.css";
 import "./navbar.css";
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/print/" element={<PrintService />} />
           <Route path="/vendordashboard" element={<Vendordashboard />} />
           <Route path="/servicesqueue" element={<ServicesQueue />} />
+          <Route path="/stationeryqueue" element={<Stationeryqueue />} />
         </Routes>
       </div>
     </Router>
