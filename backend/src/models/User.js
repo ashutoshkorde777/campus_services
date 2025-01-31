@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema({
     required: function () {
       return this.userType === 'Student'; // Only required for Student
     },
+    default: function () {
+      return this.userType === 'ServiceProvider' ? null : undefined;
+    },
+    sparse: true, // Allows multiple nulls for ServiceProvider
   },
   businessDescription: {
     type: String,
