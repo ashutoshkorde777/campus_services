@@ -8,6 +8,7 @@ import vegthaliImg from "./assets/vegthali.jpg";
 import minithaliImg from "./assets/minithali.jpg";
 import dosaImg from "./assets/dosa.jpg";
 import uttapamImg from "./assets/uttapam.jpg";
+import axios from 'axios';
 
 // Sample food items
 const foodItems = [
@@ -38,9 +39,54 @@ function Product() {
     };
 
     const handleConfirmOrder = () => {
-        alert("Order Confirmed!"); 
-        setCart([]); // Clear cart after order
+        // Prepare the summary from the cart
+        const summary = cart.reduce((acc, item) => {
+            const existingItem = acc.find(entry => entry.name === item.name);
+            if (existingItem) {
+                existingItem.quantity += item.quantity; // Increment quantity if item already exists
+            } else {
+                acc.push({ id: item.id, name: item.name, quantity: item.quantity }); // Add new item to summary
+            }
+            return acc;
+        }, []);
+
+        // Prepare the order data for the POST request
+        const orderData = {
+            listOfProducts: summary.map(item => ({
+                service: item.name, // service refers to the ID of the product/service
+                quantity: item.quantity
+            })),
+            studentId: 1, // Replace with the actual student ID
+            serviceProviderId: 1, // Replace with the actual service provider ID
+            amount: calculateTotalAmount(summary), // Function to calculate the total amount from summary
+        };
+
+        axios
+            .post("http://localhost:5000/api/orders", orderData)
+            .then((response) => {
+                alert("Order Confirmed!");
+                setCart([]); // Clear cart after order
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                alert("Error confirming order.");
+            });
     };
+
+    // Example function to calculate total amount from the summary
+    const calculateTotalAmount = (summary) => {
+        return summary.reduce((total, item) => {
+            const itemPrice = getPriceForItem(item.id); // Function to get price based on item ID
+            return total + itemPrice * item.quantity;
+        }, 0);
+    };
+
+    // Function to fetch price for an item based on its ID
+    const getPriceForItem = (itemId) => {
+        const item = cart.find(item => item.id === itemId);
+        return item ? item.price : 0;
+    };
+
 
     return (
         <div className="dashboard-container">
