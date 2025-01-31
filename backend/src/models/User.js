@@ -40,20 +40,25 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', async function (next) {
+  try {
   if (!this.isModified('password')) {
     return next();
   }
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+
+  this.password = await bcrypt.hash(this.password, 10);
   next();
+} catch (err) {
+  next(err); // Pass error to the next middleware
+}
 });
 
+// Compare stored and entered passwords
 userSchema.methods.matchPassword = async function (enteredPassword) {
-  const isMatch = await bcrypt.compare(enteredPassword, this.password);
-  console.log('Entered Password:', enteredPassword);
-  console.log('Stored Hashed Password:', this.password);
-  console.log('Password Match:', isMatch);
-  return isMatch;
+  try {
+    return await bcrypt.compare(enteredPassword, this.password);
+  } catch (err) {
+    throw new Error('Error comparing passwords');
+  }
 };
 
 const User = mongoose.model('User', userSchema);
