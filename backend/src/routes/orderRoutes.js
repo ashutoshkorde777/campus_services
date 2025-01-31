@@ -19,4 +19,8 @@ router.get('/service/:serviceId', orderController.getOrdersByService);
 // Update order status
 router.put('/:orderId/status', orderController.updateOrderStatus);
 
+// Add a new order (POST route)
+router.post('/', orderController.createOrder); // Added POST route for creating orders
+
+
 module.exports = router;

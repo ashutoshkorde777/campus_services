@@ -3,13 +3,16 @@ const Order = require('../models/order');
 // Create a new order
 exports.createOrder = async (req, res) => {
   try {
-    const { serviceId, studentId, serviceProviderId, amount } = req.body;
+    const { listOfProducts, studentId, serviceProviderId, amount } = req.body;
+    console.log(listOfProducts, studentId, serviceProviderId, amount);
+
     const order = new Order({
-      serviceId,
+      listOfProducts,  // Add the list of products as per the schema
       studentId,
       serviceProviderId,
       amount,
     });
+
     await order.save();
     res.status(201).json(order);
   } catch (err) {
@@ -40,7 +43,7 @@ exports.getOrdersByProvider = async (req, res) => {
 // Get all orders for a service
 exports.getOrdersByService = async (req, res) => {
   try {
-    const orders = await Order.find({ serviceId: req.params.serviceId });
+    const orders = await Order.find({ "listOfProducts.service": req.params.serviceId });
     res.json(orders);
   } catch (err) {
     res.status(500).json({ message: err.message });

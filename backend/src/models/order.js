@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
   listOfProducts: [
     {
-      serviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: true },
+      service: { type: String , required: true },
       quantity: { type: Number, required: true }
     }
   ],
-  studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  serviceProviderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Added field
+  studentId: { type: Number , required: true, default:1 },
+  serviceProviderId: { type: Number, required: true, default:1 }, // Added field
   orderDate: { type: Date, default: Date.now },
   status: { type: String, enum: ['pending', 'completed', 'cancelled'], default: 'pending' },
   paymentStatus: { type: String, enum: ['paid', 'notpaid'], default: 'notpaid' },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Table,
@@ -18,6 +18,7 @@ import {
 import { MonetizationOn, Cancel } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import axios from 'axios'
 
 const Queue = () => {
   const [orders, setOrders] = useState([
@@ -53,6 +54,37 @@ const Queue = () => {
   const [filterPayment, setFilterPayment] = useState("all");
   const [filterTime, setFilterTime] = useState("latest");
   const [filterStatus, setFilterStatus] = useState("all"); // New state for status filter
+
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/orders/provider/${1}`); // Adjust the URL to your API endpoint
+        console.log(response.data);
+
+        const transformedOrders = response.data.map(order => {
+          // Extract service names and quantities from the listOfProducts array
+          const serviceIds = order.listOfProducts.map(product => `${product.quantity} ${product.service}`);
+        
+          return {
+            _id: order.studentId.toString(), // Assuming the studentId is unique as _id
+            studentId: `student${order.studentId}`, // Transform studentId to the desired format
+            serviceIds: serviceIds, // Array of service names with quantities
+            orderDate: new Date(order.orderDate), // Convert string to Date object
+            status: order.status, // Order status
+            paymentStatus: order.paymentStatus, // Payment status
+            amount: order.amount, // Amount
+          };
+        });
+
+        setOrders(transformedOrders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   // Function to update order status
   const handleStatusChange = (id, newStatus) => {
