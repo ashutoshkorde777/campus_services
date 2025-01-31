@@ -16,17 +16,9 @@ const LoginPage = () => {
     phone: '', 
     businessDescription: '', 
     photo: null 
-    name: '',
-    email: '',
-    prn: '',
-    phone: '',
-    password: '',
-    businessDescription: '',
-    photo: null
   });
   const navigate = useNavigate();
   const { initializeUser } = useContext(UserContext); // Access the setUser function from UserContext
-
 
   const handleButtonClick = (type) => {
     setShowUserTypeSelection(type);
@@ -92,13 +84,9 @@ const LoginPage = () => {
         formData.append('photo', credentials.photo);  // Assuming you are handling file input
       }
 
-      formData.append('businessDescription', userType === 'ServiceProvider' ? credentials.businessDescription : null);
-      if (userType === 'ServiceProvider') formData.append('photo', credentials.photo);
-
       const response = await axios.post('http://localhost:5000/api/auth/register', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-
 
       console.log('Registration successful:', response.data);
       navigate('/'); // Redirect to login after successful registration
@@ -112,10 +100,8 @@ const LoginPage = () => {
         businessDescription: '', 
         photo: null 
       });
-      setError('Registration successful. Please log in.');
     } catch (error) {
       console.error('Registration error:', error.response ? error.response.data : error.message);
-      setError(error.response ? error.response.data.message : error.message);
     }
   };
 
@@ -136,20 +122,11 @@ const LoginPage = () => {
           <button onClick={() => handleButtonClick('register')}>Register</button>
         </div>
 
-          <div className="login-selection">
-          <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-          <option value="">Select User Type</option>
-          <option value="Student">Student</option>
-          <option value="ServiceProvider">Service Provider</option>
-          </select>
-
-          </div>
-          {showUserTypeSelection === 'login' && userType && (
         <div className="login-selection">
           <select value={userType} onChange={handleUserTypeChange}>
             <option value="">Select User Type</option>
             <option value="Student">Student</option>
-            <option value="ServiceProvider">ServiceProvider</option>
+            <option value="ServiceProvider">Service Provider</option>
           </select>
         </div>
 
@@ -200,16 +177,14 @@ const LoginPage = () => {
               onChange={handleInputChange}
             />
             {userType === 'Student' && (
-              <>
-               <div>
-    <label>PRN:</label>
-    <input
-      type="text"
-      value={credentials.prn || ''}
-      onChange={(e) => setCredentials({ ...credentials, prn: e.target.value })}
-      required={userType === 'Student'}
-    />
-  </div>
+              <div>
+                <label>PRN:</label>
+                <input
+                  type="text"
+                  value={credentials.prn || ''}
+                  onChange={(e) => setCredentials({ ...credentials, prn: e.target.value })}
+                  required
+                />
                 <input
                   type="text"
                   name="phone"
@@ -217,7 +192,7 @@ const LoginPage = () => {
                   value={credentials.phone}
                   onChange={handleInputChange}
                 />
-              </>
+              </div>
             )}
             {userType === 'ServiceProvider' && (
               <>
