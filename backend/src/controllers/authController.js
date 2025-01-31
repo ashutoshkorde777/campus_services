@@ -80,13 +80,14 @@ exports.loginUser = async (req, res) => {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
-  console.log(`Login attempt with identifier: ${identifier} and userType: ${userType}`);
+  console.log(`Login attempt with identifier: ${identifier} and userType: ${userType} and password: ${password}`);
 
   try {
     const query = userType === 'Student' ? { prn: identifier } : { phone: identifier };
     console.log(`Searching for user with query:`, query);
 
     const user = await User.findOne(query);
+    console.log(user);
 
     if (!user) {
       console.log(`User not found with identifier: ${identifier}`);

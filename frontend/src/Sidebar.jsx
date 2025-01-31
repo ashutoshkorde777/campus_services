@@ -68,18 +68,52 @@ const Sidebar = () => {
 
   const navItems = [
     {
-      name: 'Services',
+      name: 'Canteen Options',
       access: '1',
       icon: 'MdBook',
       children: [
+        {
+          name: 'Orders',
+          slug: '/queue',
+          access: '1',
+        },
+        {
+          name: 'Dashboard',
+          slug: '/vendordashboard',
+          access: '1',
+        },
       ],
     },
     {
-      name: 'Transactions',
+      name: 'CC Options',
       access: '1',
       icon: 'FiBriefcase',
       children: [
+        {
+          name: 'Stationary Orders',
+          slug: '/queue',
+          access: '1',
+        },
+        {
+          name: 'Printing Queue',
+          slug: '/servicesqueue',
+          access: '1',
+        },
       ],
+    },
+    {
+      name: 'Student Options',
+      icon: 'BsTicket',
+      access: '1',
+      children: [
+        {
+          name: 'View Services',
+          slug: '/dashboard',
+          access: '1',
+        },
+        
+      ],
+
     },
     {
       name: 'Logout',

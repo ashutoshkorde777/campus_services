@@ -24,29 +24,29 @@ const Queue = () => {
     {
       _id: "1",
       studentId: "student1",
-      serviceIds: ["Service A", "Service B"],
+      serviceIds: ["2 Samosa", "1 Tea"],
       orderDate: new Date("2024-08-25T10:00:00"),
       status: "pending",
       paymentStatus: "notpaid",
-      amount: 100,
+      amount: 65,
     },
     {
       _id: "2",
       studentId: "student2",
-      serviceIds: ["Service C"],
+      serviceIds: ["2 Burger"],
       orderDate: new Date("2024-08-24T12:00:00"),
       status: "completed",
       paymentStatus: "paid",
-      amount: 200,
+      amount: 150,
     },
     {
       _id: "3",
       studentId: "student3",
-      serviceIds: ["Service D"],
+      serviceIds: ["1 Pizza"],
       orderDate: new Date("2024-08-23T14:30:00"),
       status: "pending",
       paymentStatus: "paid",
-      amount: 300,
+      amount: 150,
     },
   ]);
 
@@ -85,8 +85,8 @@ const Queue = () => {
       <Sidebar />
       <div className="content" style={{ flexGrow: 1, padding: "20px" }}>
         <Navbar />
-        <Container maxWidth="lg">
-          <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3, color: "#333" }}>
+        <Container maxWidth="lg" align="center">
+          <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3, color: "#333", alignContent:"center"}}>
             📋 Order Queue
           </Typography>
 
@@ -146,7 +146,7 @@ const Queue = () => {
             <Table>
               <TableHead>
                 <TableRow sx={{ backgroundColor: "#1976D2" }}>
-                  {["Order ID", "Student ID", "Services", "Order Date", "Status", "Payment", "Amount"].map((header) => (
+                  {["Order ID", "Student ID", "Orders", "Order Date", "Status", "Payment", "Amount"].map((header) => (
                     <TableCell key={header} sx={{ color: "white", fontWeight: "bold" }}>
                       {header}
                     </TableCell>
