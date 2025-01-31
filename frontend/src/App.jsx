@@ -17,6 +17,8 @@ import Vendordashboard from './Vendordashboard';
 import ServicesQueue from "./ServicesQueue";
 import Stationeryqueue from "./Stationeryqueue";
 import Servicesform from "./Servicesform";
+import Products from './Products';
+
 import Studentorders from "./Studentorders";
 
 
@@ -53,6 +55,7 @@ const App = () => {
           <Route path="/servicesqueue" element={<ServicesQueue />} />
           <Route path="/stationeryqueue" element={<Stationeryqueue />} />
           <Route path="/servicesform" element={<Servicesform />} />
+          <Route path="/products/:providerId" element={<Products />} />
           <Route path="/studentorders" element={<Studentorders />} />
 
         </Routes>

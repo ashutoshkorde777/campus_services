@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, CardActionArea } from '@mui/material';
 
 const ServiceProviderCard = ({ provider }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/products/${provider._id}`);
+  };
+
   return (
     <Card
       sx={{
@@ -15,6 +22,7 @@ const ServiceProviderCard = ({ provider }) => {
         },
         cursor: 'pointer',
       }}
+      onClick={handleCardClick}
     >
       <CardActionArea>
         <CardMedia
