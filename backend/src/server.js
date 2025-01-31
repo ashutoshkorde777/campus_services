@@ -8,16 +8,13 @@ const authRoutes = require('./routes/authRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const serviceProviderRoutes = require('./routes/serviceProviderRoutes');
 
+
 dotenv.config();
 connectDB();
 
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-    allowedHeaders: ['Content-Type'], // Allowed headers
-}));
+app.use(cors());
 
 app.use(express.json()); // Middleware for JSON parsing
 

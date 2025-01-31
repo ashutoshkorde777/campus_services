@@ -4,7 +4,7 @@ const User = require('../models/User');
 // Get all services for a service provider
 exports.getServices = async (req, res) => {
   try {
-    const services = await Service.find({ providerId: req.user._id });
+    const services = await Service.find({ providerId: req.params.providerId });
     res.json(services);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -14,10 +14,14 @@ exports.getServices = async (req, res) => {
 // Add a new service
 exports.addService = async (req, res) => {
   try {
-    const { customId, name, description, price, stock, requiresFiles, category } = req.body;
+    if (!req.user) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+    const { customId, name, description, price, stock, requiresFiles, category, providerId} = req.body;
     const image = req.file ? req.file.path : null;
-    console.log(req.body); // Logs form fields (customId, name, description, etc.)
-    console.log(req.file);  // Logs file data (image)
+    console.log('Request Body:', req.body); 
+    console.log('Uploaded Image:', req.file);
+  // Logs file data (image)
 
 
     const service = new Service({
@@ -29,7 +33,7 @@ exports.addService = async (req, res) => {
       requiresFiles, // Include the new field
       category, // Include the new field
       image, // Include the image path
-      providerId: req.user._id, // Get the provider ID from the logged-in user
+      providerId, // Get the provider ID from the logged-in user
     });
     await service.save();
     res.status(201).json(service);

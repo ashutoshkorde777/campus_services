@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import ActionAreaCard from './components/ActionAreaCard';
 import CanteenCard from './components/canteencard';
-import ServiceProviderCard from './components/ServiceProviderCard'; // Import the new card component
+import ServiceProviderCard from './ServiceProviderCard'; // Import the new card component
 import axios from 'axios';
 import './dashboard.css';
 

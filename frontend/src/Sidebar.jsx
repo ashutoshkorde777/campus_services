@@ -111,6 +111,11 @@ const Sidebar = () => {
           slug: '/servicesqueue',
           access: '1',
         },
+        {
+          name:'Add Services',
+          slug:'/servicesform',
+          access:'1',
+        }
       ],
     },
     {
