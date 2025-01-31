@@ -17,6 +17,8 @@ import Vendordashboard from './Vendordashboard';
 import ServicesQueue from "./ServicesQueue";
 import Stationeryqueue from "./Stationeryqueue";
 import Servicesform from "./Servicesform";
+import Studentorders from "./Studentorders";
+
 
 import "./App.css";
 import "./navbar.css";
@@ -51,6 +53,7 @@ const App = () => {
           <Route path="/servicesqueue" element={<ServicesQueue />} />
           <Route path="/stationeryqueue" element={<Stationeryqueue />} />
           <Route path="/servicesform" element={<Servicesform />} />
+          <Route path="/studentorders" element={<Studentorders />} />
 
         </Routes>
       </div>

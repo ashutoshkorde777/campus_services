@@ -120,7 +120,7 @@ const Queue = () => {
         <Navbar />
         <Container maxWidth="lg" align="center">
           <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3, color: "#333", alignContent:"center"}}>
-            📋 Order Queue
+            📋 My Orders
           </Typography>
 
           {/* Filter Section */}

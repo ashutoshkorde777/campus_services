@@ -123,6 +123,11 @@ const Sidebar = () => {
           slug: '/dashboard',
           access: '1',
         },
+        {
+          name: 'My Orders',
+          slug: '/studentorders',
+          access: '1',
+        },
         
       ],
 

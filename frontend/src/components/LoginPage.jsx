@@ -19,6 +19,7 @@ const LoginPage = () => {
   });
   const navigate = useNavigate();
   const { initializeUser } = useContext(UserContext); // Access the setUser function from UserContext
+  const {user} = useContext(UserContext);
 
   const handleButtonClick = (type) => {
     setShowUserTypeSelection(type);
@@ -51,7 +52,12 @@ const LoginPage = () => {
       const temp = await initializeUser(response.data);
 
       console.log('Login successful:', response.data);
-      navigate('/dashboard');
+      if(user.roleType !== "Student"){
+        navigate('/queue');
+      }else{
+        navigate('/dashboard');
+      }
+      
     } catch (error) {
       console.error('Login error:', error.response ? error.response.data : error.message);
     }
