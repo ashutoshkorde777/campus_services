@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css';
+import UserContext from '../UserContext';
 
 const LoginPage = () => {
   const [showUserTypeSelection, setShowUserTypeSelection] = useState('');
@@ -16,6 +17,8 @@ const LoginPage = () => {
     photo: null 
   });
   const navigate = useNavigate();
+  const { initializeUser } = useContext(UserContext); // Access the setUser function from UserContext
+
 
   const handleButtonClick = (type) => {
     setShowUserTypeSelection(type);
@@ -43,6 +46,8 @@ const LoginPage = () => {
         identifier,
         password: credentials.password
       });
+
+      const temp = await initializeUser(response.data);
 
       console.log('Login successful:', response.data);
       navigate('/dashboard');
