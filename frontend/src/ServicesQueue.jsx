@@ -14,17 +14,20 @@ import {
   Chip,
   Box,
   Toolbar,
+  Button,
 } from "@mui/material";
-import { MonetizationOn, Cancel } from "@mui/icons-material";
+import { MonetizationOn, Cancel, CloudDownload } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
-const Queue = () => {
+const PrintQueue = () => {
   const [orders, setOrders] = useState([
     {
       _id: "1",
       studentId: "student1",
-      serviceIds: ["2 Samosa", "1 Tea"],
+      printType: "One Side",
+      colorMode: "Color",
+      attachment: "file1.pdf",
       orderDate: new Date("2024-08-25T10:00:00"),
       status: "pending",
       paymentStatus: "notpaid",
@@ -33,7 +36,9 @@ const Queue = () => {
     {
       _id: "2",
       studentId: "student2",
-      serviceIds: ["2 Burger"],
+      printType: "Two Side",
+      colorMode: "Black & White",
+      attachment: "file2.pdf",
       orderDate: new Date("2024-08-24T12:00:00"),
       status: "completed",
       paymentStatus: "paid",
@@ -42,19 +47,20 @@ const Queue = () => {
     {
       _id: "3",
       studentId: "student3",
-      serviceIds: ["1 Pizza"],
+      printType: "One Side",
+      colorMode: "Black & White",
+      attachment: "file3.pdf",
       orderDate: new Date("2024-08-23T14:30:00"),
       status: "pending",
       paymentStatus: "paid",
-      amount: 150,
+      amount: 90,
     },
   ]);
 
   const [filterPayment, setFilterPayment] = useState("all");
-  const [filterTime, setFilterTime] = useState("latest");
-  const [filterStatus, setFilterStatus] = useState("all"); // New state for status filter
+  const [filterStatus, setFilterStatus] = useState("all");
 
-  // Function to update order status
+  // Update Order Status
   const handleStatusChange = (id, newStatus) => {
     setOrders((prevOrders) =>
       prevOrders.map((order) =>
@@ -63,22 +69,16 @@ const Queue = () => {
     );
   };
 
-  // Apply filters
-  const filteredOrders = orders
-    .filter((order) => {
-      if (filterPayment !== "all" && order.paymentStatus !== filterPayment) {
-        return false;
-      }
-      if (filterStatus !== "all" && order.status !== filterStatus) {
-        return false;
-      }
-      return true;
-    })
-    .sort((a, b) => {
-      return filterTime === "latest"
-        ? new Date(b.orderDate) - new Date(a.orderDate)
-        : new Date(a.orderDate) - new Date(b.orderDate);
-    });
+  // Apply Filters
+  const filteredOrders = orders.filter((order) => {
+    if (filterPayment !== "all" && order.paymentStatus !== filterPayment) {
+      return false;
+    }
+    if (filterStatus !== "all" && order.status !== filterStatus) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <div className="dashboard-container" style={{ display: "flex" }}>
@@ -86,8 +86,21 @@ const Queue = () => {
       <div className="content" style={{ flexGrow: 1, padding: "20px" }}>
         <Navbar />
         <Container maxWidth="lg" align="center">
-          <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3, color: "#333", alignContent:"center"}}>
-            📋 Order Queue
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: "bold",
+              mb: 3,
+              color: "#333",
+              textAlign: "center",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              marginTop: 5,
+            }}
+          >
+            🖨️ Print Order Queue
           </Typography>
 
           {/* Filter Section */}
@@ -110,22 +123,6 @@ const Queue = () => {
 
             <Box>
               <Typography variant="subtitle1" sx={{ fontWeight: "bold", mr: 1 }}>
-                Sort by Time:
-              </Typography>
-              <Select
-                value={filterTime}
-                onChange={(e) => setFilterTime(e.target.value)}
-                size="small"
-                sx={{ width: 150 }}
-              >
-                <MenuItem value="latest">Latest First</MenuItem>
-                <MenuItem value="oldest">Oldest First</MenuItem>
-              </Select>
-            </Box>
-
-            {/* New Status Filter */}
-            <Box>
-              <Typography variant="subtitle1" sx={{ fontWeight: "bold", mr: 1 }}>
                 Filter by Status:
               </Typography>
               <Select
@@ -142,15 +139,18 @@ const Queue = () => {
             </Box>
           </Toolbar>
 
+          {/* Table */}
           <TableContainer component={Paper} sx={{ borderRadius: 3, boxShadow: 4, overflow: "hidden" }}>
             <Table>
               <TableHead>
                 <TableRow sx={{ backgroundColor: "#1976D2" }}>
-                  {["Order ID", "Student ID", "Orders", "Order Date", "Status", "Payment", "Amount"].map((header) => (
-                    <TableCell key={header} sx={{ color: "white", fontWeight: "bold" }}>
-                      {header}
-                    </TableCell>
-                  ))}
+                  {["Order ID", "Student ID", "Print Type", "Color Mode", "Attachment", "Order Date", "Status", "Payment", "Amount"].map(
+                    (header) => (
+                      <TableCell key={header} sx={{ color: "white", fontWeight: "bold" }}>
+                        {header}
+                      </TableCell>
+                    )
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -158,7 +158,19 @@ const Queue = () => {
                   <TableRow key={order._id} hover>
                     <TableCell sx={{ fontWeight: "bold", color: "#333" }}>{order._id}</TableCell>
                     <TableCell>{order.studentId}</TableCell>
-                    <TableCell>{order.serviceIds.join(", ")}</TableCell>
+                    <TableCell>{order.printType}</TableCell>
+                    <TableCell>{order.colorMode}</TableCell>
+                    {/* Attachment Column */}
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        startIcon={<CloudDownload />}
+                        onClick={() => window.open(order.attachment, "_blank")}
+                      >
+                        Download
+                      </Button>
+                    </TableCell>
                     <TableCell>{new Date(order.orderDate).toLocaleString()}</TableCell>
                     {/* Status Dropdown */}
                     <TableCell>
@@ -209,4 +221,4 @@ const Queue = () => {
   );
 };
 
-export default Queue;
+export default PrintQueue;
