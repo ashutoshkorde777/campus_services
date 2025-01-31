@@ -1,64 +1,115 @@
-/* src/sidebar.css */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
-/* Sidebar background color */
 .sidebar {
-    background-color: #2e83d8; /* Dark Blue */
-    color: white;
-    width: 50px; /* Initially collapsed width */
-    height: 100vh; /* Full height */
-    padding: 10px 5px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transition: width 0.3s ease; /* Smooth transition for resizing */
-    z-index: 999;
-    overflow: hidden; /* Hide overflowing content when collapsed */
-  }
-  
-  /* Sidebar expands when hovered */
-  .sidebar:hover {
-    width: 200px; /* Expands sidebar */
-    padding: 20px;
-  }
-  
-  /* Sidebar links styling */
-  .sidebar-links {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    transition: opacity 0.3s ease;
-  }
-  
-  .sidebar-links li {
-    margin: 20px 0;
-    text-align: center;
-  }
-  
-  /* Initially, make links invisible when the sidebar is collapsed */
-  .sidebar:not(:hover) .sidebar-links {
-    opacity: 0;
-  }
-  
-  /* Sidebar links visible when expanded */
-  .sidebar:hover .sidebar-links {
-    opacity: 1;
-  }
-  
-  /* Sidebar links styles */
-  .sidebar-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    display: block;
-    padding: 10px 0; /* Adds padding for clickable area */
-    transition: background-color 0.3s ease;
-  }
-  
-  /* Hover effect for links */
-  .sidebar-links a:hover {
-    background-color: #0056b3; /* Bright Blue on hover */
-    padding-left: 10px; /* Optional: slight indent on hover */
-  }
-  
+  background-color: #0061a1;
+  width: 3.3rem;
+  height: 100%;
+  transition: width 0.3s;
+  overflow: hidden;
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  row-gap: 0.7vmax;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  padding: 9px 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.icon-container:hover {
+  background-color: #2679af;
+}
+
+.icon {
+  font-size: 24px;
+  color: white;
+}
+
+.menu-text {
+  color: white;
+  opacity: 0;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateX(-10px);
+  position: absolute;
+  left: 63px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.sidebar:hover {
+  width: 240px;
+}
+
+.sidebar:hover .menu-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu-icon {
+  margin: 15px;
+}
+
+.submenu {
+  /* overflow: hidden; */
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out; /* Smooth animation */
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  row-gap: 0.5vmax;
+}
+
+.submenu.expanded {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.main-item {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.main-item-content {
+  display: flex;
+  align-items: center;
+}
+
+.chevron {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar:hover .chevron {
+  display: flex;
+}
+
+.submenu .icon-container {
+  padding-left: 10px;
+}
+
+.submenu .icon-container:hover {
+  background-color: #1b5b8a;
+}
