@@ -26,7 +26,7 @@ exports.registerUser = async (req, res) => {
 
     const user = await User.create({
       userType,
-      prn: userType === 'Student' ? prn : null,
+      prn: userType === 'Student' ? prn : undefined,
       email,
       name,
       password: hashedPassword,  // Save the hashed password

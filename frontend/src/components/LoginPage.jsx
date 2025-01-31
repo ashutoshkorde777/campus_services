@@ -59,7 +59,9 @@ const LoginPage = () => {
       formData.append('email', credentials.email);
       formData.append('password', credentials.password);
       formData.append('phone', userType === 'ServiceProvider' ? credentials.phone : null);
-      formData.append('prn', userType === 'Student' ? credentials.prn : null);
+      if (userType === 'Student') {
+        formData.append('prn', credentials.prn);
+      }
       formData.append('businessDescription', userType === 'ServiceProvider' ? credentials.businessDescription : null);
       if (userType === 'ServiceProvider') formData.append('photo', credentials.photo);
   
@@ -70,7 +72,7 @@ const LoginPage = () => {
       console.log('Registration successful:', response.data);
   
       // Navigate to Login page after successful registration
-      navigate('/login');
+      navigate('/');
       // Reset the user type selection to show the login form
       setShowUserTypeSelection('login');
     } catch (error) {
