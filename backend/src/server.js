@@ -4,7 +4,6 @@ const cors = require('cors'); // Import cors
 const path = require('path'); // Import path
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
-const serviceProviderRoutes = require('./routes/serviceProviderRoutes');
 const authRoutes = require('./routes/authRoutes');
 const orderRoutes = require('./routes/orderRoutes'); // Import orderRoutes
 
@@ -17,10 +16,9 @@ app.use(cors()); // Use cors middleware
 app.use(express.json()); // Middleware for JSON parsing
 
 // Serve static files from the uploads directory
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/users', userRoutes);
-app.use('/api/service-provider', serviceProviderRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/orders', orderRoutes); // Use orderRoutes
 

@@ -8,10 +8,10 @@ const LoginPage = () => {
   const [userType, setUserType] = useState('');
   const [credentials, setCredentials] = useState({
     name: '', 
-    email: '', 
-    prn: '', 
+    email: '',
+    password: '',
+    prn: '',  
     phone: '', 
-    password: '', 
     businessDescription: '', 
     photo: null 
   });
@@ -54,33 +54,51 @@ const LoginPage = () => {
   const handleRegister = async () => {
     try {
       const formData = new FormData();
+      
       formData.append('userType', userType);
       formData.append('name', credentials.name);
       formData.append('email', credentials.email);
       formData.append('password', credentials.password);
-      formData.append('phone', userType === 'ServiceProvider' ? credentials.phone : null);
+      formData.append('phone', credentials.phone);
+
       if (userType === 'Student') {
+        if (!credentials.prn) {
+          alert('PRN is required for Student registration');
+          return;  // Stop form submission if PRN is missing
+        }
         formData.append('prn', credentials.prn);
       }
-      formData.append('businessDescription', userType === 'ServiceProvider' ? credentials.businessDescription : null);
-      if (userType === 'ServiceProvider') formData.append('photo', credentials.photo);
-  
+
+      if (userType === 'ServiceProvider') {
+        if (!credentials.businessDescription || !credentials.photo) {
+          alert('Business Description and Photo are required for ServiceProvider registration');
+          return;  // Stop form submission if either is missing
+        }
+        formData.append('businessDescription', credentials.businessDescription);
+        formData.append('photo', credentials.photo);  // Assuming you are handling file input
+      }
+
       const response = await axios.post('http://localhost:5000/api/auth/register', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-  
+
       console.log('Registration successful:', response.data);
-  
-      // Navigate to Login page after successful registration
-      navigate('/');
-      // Reset the user type selection to show the login form
       setShowUserTypeSelection('login');
+      setCredentials({
+        name: '', 
+        email: '',
+        password: '',
+        prn: '',  
+        phone: '', 
+        businessDescription: '', 
+        photo: null 
+      });
+      setError('Registration successful. Please log in.');
     } catch (error) {
       console.error('Registration error:', error.response ? error.response.data : error.message);
+      setError(error.response ? error.response.data.message : error.message);
     }
   };
-  
-
 
   return (
     <div className="auth-container">
@@ -93,11 +111,12 @@ const LoginPage = () => {
         </div>
 
           <div className="login-selection">
-            <select value={userType} onChange={handleUserTypeChange}>
-              <option value="">Select User Type</option>
-              <option value="Student">Student</option>
-              <option value="ServiceProvider">ServiceProvider</option>
-            </select>
+          <select value={userType} onChange={(e) => setUserType(e.target.value)}>
+          <option value="">Select User Type</option>
+          <option value="Student">Student</option>
+          <option value="ServiceProvider">Service Provider</option>
+          </select>
+
           </div>
           {showUserTypeSelection === 'login' && userType && (
           <div className="login-input">
@@ -149,13 +168,15 @@ const LoginPage = () => {
             />
             {userType === 'Student' && (
               <>
-                <input
-                  type="text"
-                  name="prn"
-                  placeholder="PRN"
-                  value={credentials.prn}
-                  onChange={handleInputChange}
-                />
+               <div>
+    <label>PRN:</label>
+    <input
+      type="text"
+      value={credentials.prn || ''}
+      onChange={(e) => setCredentials({ ...credentials, prn: e.target.value })}
+      required={userType === 'Student'}
+    />
+  </div>
                 <input
                   type="text"
                   name="phone"
