@@ -91,7 +91,7 @@ const Sidebar = () => {
       children: [
         {
           name: 'Stationary Orders',
-          slug: '/queue',
+          slug: '/stationeryqueue',
           access: '1',
         },
         {
