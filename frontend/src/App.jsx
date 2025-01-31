@@ -16,6 +16,7 @@ import PrintService from './PrintService';
 import Vendordashboard from './Vendordashboard';
 import ServicesQueue from "./ServicesQueue";
 import Stationeryqueue from "./Stationeryqueue";
+import Servicesform from "./Servicesform";
 
 import "./App.css";
 import "./navbar.css";
@@ -49,6 +50,8 @@ const App = () => {
           <Route path="/vendordashboard" element={<Vendordashboard />} />
           <Route path="/servicesqueue" element={<ServicesQueue />} />
           <Route path="/stationeryqueue" element={<Stationeryqueue />} />
+          <Route path="/servicesform" element={<Servicesform />} />
+
         </Routes>
       </div>
     </Router>

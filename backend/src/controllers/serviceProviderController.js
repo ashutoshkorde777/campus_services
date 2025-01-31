@@ -16,6 +16,9 @@ exports.addService = async (req, res) => {
   try {
     const { customId, name, description, price, stock, requiresFiles, category } = req.body;
     const image = req.file ? req.file.path : null;
+    console.log(req.body); // Logs form fields (customId, name, description, etc.)
+    console.log(req.file);  // Logs file data (image)
+
 
     const service = new Service({
       customId,
