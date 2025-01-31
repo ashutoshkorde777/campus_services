@@ -1,75 +1,164 @@
+/* Full-screen background with the image */
 .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-  }
-  
-  .auth-box {
-    background: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
-    width: 100%;
-  }
-  
-  .auth-box h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .auth-box p {
-    margin-bottom: 20px;
-    color: #666;
-  }
-  
-  .login-options {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .login-options button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .login-options button:hover {
-    background-color: #0056b3;
-  }
-  
-  .login-options a {
-    text-decoration: none;
-  }
-  
-  .login-selection {
-    margin-bottom: 20px;
-  }
-  
-  .login-selection select {
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 100%;
-    background-color: #ffffff;
-    appearance: none;
-    cursor: pointer;
-  }
-  
-  .login-selection select:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('/assets/graphics.png') no-repeat center center/cover;
+  padding: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.auth-box {
+  background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.auth-box:hover {
+  transform: translateY(-5px);
+}
+
+.auth-box h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
+  color: #222;
+  font-weight: bold;
+}
+
+.auth-box p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.login-options button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin: 0 5px;
+}
+
+.login-options button:hover {
+  background: #4338ca;
+}
+
+.login-selection select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+  background-color: #fff;
+  appearance: none;
+  cursor: pointer;
+  transition: border 0.3s;
+}
+
+.login-selection select:focus {
+  border-color: #4f46e5;
+  outline: none;
+}
+
+/* Input fields styling */
+.credentials-input input,
+.login-input input,
+.credentials-input textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border 0.3s;
+}
+
+.credentials-input input:focus,
+.login-input input:focus,
+.credentials-input textarea:focus {
+  border-color: #4f46e5;
+  outline: none;
+}
+
+.credentials-input textarea {
+  height: 80px;
+  resize: none;
+}
+
+.credentials-input input[type="file"] {
+  display: none; /* Hide the default file input */
+}
+
+/* Custom 'Choose an Image' button and container */
+.credentials-input label {
+  display: inline-block;
+  background-color: #6b697d;
+  color: white;
+  font-size: 14px; /* Smaller text size */
+  padding: 8px 16px; /* Smaller padding */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-align: center;
+  margin-top: 10px;
+  width: auto;
+}
+
+.credentials-input label:hover {
+  background-color: #4338ca;
+}
+
+/* Smaller Image Preview Container */
+.image-preview {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center; /* Centers the image horizontally */
+  align-items: center; /* Centers the image vertically */
+  gap: 10px;
+  width: 100%; /* Ensures the container takes full width */
+}
+
+.image-preview img {
+  border-radius: 8px;
+  object-fit: cover;
+  width: 100px;  /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+}
+
+
+/* Button styling */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #4338ca;
+}

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css';
 import UserContext from '../UserContext';
+import backgroundImage from '../assets/graphics.png';
 
 const LoginPage = () => {
   const [showUserTypeSelection, setShowUserTypeSelection] = useState('');
@@ -19,7 +20,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { initializeUser } = useContext(UserContext); // Access the setUser function from UserContext
 
-
   const handleButtonClick = (type) => {
     setShowUserTypeSelection(type);
   };
@@ -34,7 +34,8 @@ const LoginPage = () => {
   };
 
   const handleFileChange = (e) => {
-    setCredentials({ ...credentials, photo: e.target.files[0] });
+    const file = e.target.files[0];
+    setCredentials({ ...credentials, photo: file });
   };
 
   const handleLogin = async () => {
@@ -88,6 +89,7 @@ const LoginPage = () => {
       });
 
       console.log('Registration successful:', response.data);
+      navigate('/'); // Redirect to login after successful registration
       setShowUserTypeSelection('login');
       setCredentials({
         name: '', 
@@ -98,15 +100,20 @@ const LoginPage = () => {
         businessDescription: '', 
         photo: null 
       });
-      setError('Registration successful. Please log in.');
     } catch (error) {
       console.error('Registration error:', error.response ? error.response.data : error.message);
-      setError(error.response ? error.response.data.message : error.message);
     }
   };
 
   return (
-    <div className="auth-container">
+    <div
+      className="auth-container"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <div className="auth-box">
         <h2>Welcome</h2>
         <p>Please choose an option:</p>
@@ -115,47 +122,45 @@ const LoginPage = () => {
           <button onClick={() => handleButtonClick('register')}>Register</button>
         </div>
 
-          <div className="login-selection">
-          <select value={userType} onChange={(e) => setUserType(e.target.value)}>
-          <option value="">Select User Type</option>
-          <option value="Student">Student</option>
-          <option value="ServiceProvider">Service Provider</option>
+        <div className="login-selection">
+          <select value={userType} onChange={handleUserTypeChange}>
+            <option value="">Select User Type</option>
+            <option value="Student">Student</option>
+            <option value="ServiceProvider">Service Provider</option>
           </select>
+        </div>
 
-          </div>
-          {showUserTypeSelection === 'login' && userType && (
+        {showUserTypeSelection === 'login' && userType && (
           <div className="login-input">
-          {userType === 'Student' && (
+            {userType === 'Student' && (
+              <input
+                type="text"
+                name="prn"
+                placeholder="PRN"
+                value={credentials.prn}
+                onChange={handleInputChange}
+              />
+            )}
+            {userType === 'ServiceProvider' && (
+              <input
+                type="text"
+                name="phone"
+                placeholder="Phone"
+                value={credentials.phone}
+                onChange={handleInputChange}
+              />
+            )}
             <input
-              type="text"
-              name="prn"
-              placeholder="PRN"
-              value={credentials.prn}
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={credentials.password}
               onChange={handleInputChange}
             />
-          )}
-          {userType === 'ServiceProvider' && (
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone"
-              value={credentials.phone}
-              onChange={handleInputChange}
-            />
-          )}
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={credentials.password}
-            onChange={handleInputChange}
-          />
           </div>
-          
-          
         )}
 
-        {showUserTypeSelection =='register' && userType && (
+        {showUserTypeSelection === 'register' && userType && (
           <div className="credentials-input">
             <input
               type="text"
@@ -172,16 +177,14 @@ const LoginPage = () => {
               onChange={handleInputChange}
             />
             {userType === 'Student' && (
-              <>
-               <div>
-    <label>PRN:</label>
-    <input
-      type="text"
-      value={credentials.prn || ''}
-      onChange={(e) => setCredentials({ ...credentials, prn: e.target.value })}
-      required={userType === 'Student'}
-    />
-  </div>
+              <div>
+                <label>PRN:</label>
+                <input
+                  type="text"
+                  value={credentials.prn || ''}
+                  onChange={(e) => setCredentials({ ...credentials, prn: e.target.value })}
+                  required
+                />
                 <input
                   type="text"
                   name="phone"
@@ -189,7 +192,7 @@ const LoginPage = () => {
                   value={credentials.phone}
                   onChange={handleInputChange}
                 />
-              </>
+              </div>
             )}
             {userType === 'ServiceProvider' && (
               <>
@@ -209,8 +212,22 @@ const LoginPage = () => {
                 <input
                   type="file"
                   name="photo"
+                  id="photoInput"
+                  accept="image/*"
                   onChange={handleFileChange}
                 />
+                <label htmlFor="photoInput" className="choose-image-label">Choose an Image</label>
+
+                {/* Image Preview */}
+                {credentials.photo && (
+                  <div className="image-preview">
+                    <img 
+                      src={URL.createObjectURL(credentials.photo)} 
+                      alt="Preview" 
+                      style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '8px' }} 
+                    />
+                  </div>
+                )}
               </>
             )}
             <input
