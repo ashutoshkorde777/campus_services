@@ -64,6 +64,12 @@ const LoginPage = () => {
       }
       formData.append('businessDescription', userType === 'ServiceProvider' ? credentials.businessDescription : null);
       if (userType === 'ServiceProvider') formData.append('photo', credentials.photo);
+
+      formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+
+      
   
       const response = await axios.post('http://localhost:5000/api/auth/register', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
