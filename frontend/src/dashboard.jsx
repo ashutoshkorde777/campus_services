@@ -6,9 +6,12 @@ import CanteenCard from './components/canteencard';
 import ServiceProviderCard from './components/ServiceProviderCard'; // Import the new card component
 import axios from 'axios';
 import './dashboard.css';
+import Chatbot from "./Chatbot";
 
 const Dashboard = () => {
   const [serviceProviders, setServiceProviders] = useState([]);
+  const [chatbotVisible, setChatbotVisible] = useState(false);
+
 
   useEffect(() => {
     const fetchServiceProviders = async () => {
@@ -38,6 +41,14 @@ const Dashboard = () => {
               <ServiceProviderCard key={provider._id} provider={provider} />
             ))}
         </div>
+        {/* Chatbot button in bottom-right corner */}
+        <button className="chat-icon" onClick={() => setChatbotVisible(true)}>
+          💬
+        </button>
+
+        {/* Chatbot Appears When Clicked */}
+        {chatbotVisible && <Chatbot onClose={() => setChatbotVisible(false)} />}
+
       </div>
     </div>
   );
