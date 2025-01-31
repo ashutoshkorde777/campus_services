@@ -10,29 +10,43 @@ const generateToken = (id) => {
 };
 
 // Register User
+
+// Register User
 exports.registerUser = async (req, res) => {
   const { userType, prn, email, name, password, phone, businessDescription } = req.body;
   const photo = req.file ? req.file.path : null;
 
-  try {
-    const userExists = await User.findOne({ email });
+  if (!userType || !email || !name || !password || !phone) {
+    return res.status(400).json({ message: 'User type, email, name, password, and phone are required' });
+  }
 
+  try {
+    // Specific validation for ServiceProvider
+    if (userType === 'ServiceProvider' && (!businessDescription || !photo)) {
+      return res.status(400).json({ message: 'Business Description and Photo are required for ServiceProvider registration' });
+    }
+
+    // Validation for Student
+    if (userType === 'Student' && !prn) {
+      return res.status(400).json({ message: 'PRN is required for Student registration' });
+    }
+
+    // Check if user already exists
+    const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Hash password before saving to the database
-    const hashedPassword = await bcrypt.hash(password, 10);
-
+    // Create the new user
     const user = await User.create({
       userType,
-      prn: userType === 'Student' ? prn : undefined,
+      prn: userType === 'Student' ? prn : null,
       email,
       name,
-      password: hashedPassword,  // Save the hashed password
+      password,
       phone,
       businessDescription: userType === 'ServiceProvider' ? businessDescription : null,
-      photo: userType === 'ServiceProvider' ? photo : null
+      photo: userType === 'ServiceProvider' ? photo : null,
     });
 
     if (user) {
@@ -44,16 +58,19 @@ exports.registerUser = async (req, res) => {
         phone: user.phone,
         businessDescription: user.businessDescription,
         photo: user.photo,
-        token: generateToken(user._id)
+        token: generateToken(user._id),
       });
     } else {
       res.status(400).json({ message: 'Invalid user data' });
     }
   } catch (error) {
-    console.error("Error during registration:", error);  // Log the error for debugging
+    console.error('Error during registration:', error);
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
 
 // Login User
 exports.loginUser = async (req, res) => {
@@ -91,6 +108,16 @@ exports.loginUser = async (req, res) => {
       console.log(`Invalid password for user with identifier: ${identifier}`);
       res.status(401).json({ message: 'Invalid password' });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Fetch all Service Providers
+exports.getServiceProviders = async (req, res) => {
+  try {
+    const serviceProviders = await User.find({ userType: 'ServiceProvider' }).select('name photo businessDescription');
+    res.json({ serviceProviders }); // Wrap in an object to access easily in the frontend
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

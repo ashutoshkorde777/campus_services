@@ -4,40 +4,49 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   userType: {
     type: String,
-    required: true,
-    enum: ['Student', 'ServiceProvider']
-  },
-  prn: {
-    type: String,
-    unique: true,
-    sparse: true // Only enforce uniqueness if the field is not null
+    required: [true, 'User type is required'],
   },
   email: {
     type: String,
-    required: true,
-    unique: true
+    required: [true, 'Email is required'],
+    unique: true,
   },
   name: {
     type: String,
-    required: true
+    required: [true, 'Name is required'],
   },
   password: {
     type: String,
-    required: true
+    required: [true, 'Password is required'],
   },
   phone: {
     type: String,
-    required: true,
-    unique: true
+    required: [true, 'Phone number is required'],
+  },
+  prn: {
+    type: String,
+    required: function () {
+      return this.userType === 'Student'; // Only required for Student
+    },
+    default: function () {
+      return this.userType === 'ServiceProvider' ? null : undefined;
+    },
+    sparse: true, // Allows multiple nulls for ServiceProvider
   },
   businessDescription: {
     type: String,
-    required: function() { return this.userType === 'ServiceProvider'; } // Required only for Service Providers
+    required: function () {
+      return this.userType === 'ServiceProvider'; // Only required for ServiceProvider
+    },
   },
   photo: {
-    type: String // Field to store the photo path
-  }
+    type: String,
+    required: function () {
+      return this.userType === 'ServiceProvider'; // Only required for ServiceProvider
+    },
+  },
 });
+
 
 userSchema.pre('save', async function (next) {
   try {

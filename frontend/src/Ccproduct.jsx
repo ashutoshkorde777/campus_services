@@ -3,7 +3,7 @@ import { Grid, Typography, Box } from "@mui/material";
 import FoodCard from "./Card";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
-import Cart from "./cart";
+import Cart from "./Cart";
 import Pen from "./assets/pen.png";
 import Pencil from "./assets/pencil.jpeg";
 import notebook from "./assets/notebooks.jpg";

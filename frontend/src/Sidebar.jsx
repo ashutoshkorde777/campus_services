@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import axios from 'axios'
 import './Sidebar.css'
 import {
@@ -20,6 +20,7 @@ import { IoIosGrid } from 'react-icons/io'
 import { GiSkills } from 'react-icons/gi'
 import { TbSubtask } from 'react-icons/tb'
 import { BsListTask } from 'react-icons/bs'
+import UserContext from './UserContext'
 
 // Utility to map icon strings to actual icon components
 const iconMap = {
@@ -44,9 +45,12 @@ const Sidebar = () => {
   const [openSection, setOpenSection] = useState(null)
   const [employeeAccess1, setEmployeeAccess1] = useState('0')
   const [trainerAccess, setTrainerAccess] = useState('0')
+  const { user } = useContext(UserContext); // Access context values
+  console.log(user);
+
 
   
-;
+
 
   console.log("EMP: ", employeeAccess1);
         console.log("TRAINER: ", trainerAccess);
@@ -55,6 +59,14 @@ const Sidebar = () => {
   const ProjectManagementAccess = '11111111111111111111111111'
   const TrainingManagementAccess = '11111111111111111111111111'
   const TicketManagementAccess = '11111111111111111111111111'
+  const options = '011';
+  const options2 = '100';
+  let finaloptions = '';
+  if(user.userType === "Student"){
+    finaloptions = options2;
+  }else{
+    finaloptions = options;
+  }
 
   console.log("TRaining management: ", TrainingManagementAccess[0]);
 
@@ -69,7 +81,7 @@ const Sidebar = () => {
   const navItems = [
     {
       name: 'Canteen Options',
-      access: '1',
+      access: finaloptions[1],
       icon: 'MdBook',
       children: [
         {
@@ -86,7 +98,7 @@ const Sidebar = () => {
     },
     {
       name: 'CC Options',
-      access: '1',
+      access: finaloptions[2],
       icon: 'FiBriefcase',
       children: [
         {
@@ -104,7 +116,7 @@ const Sidebar = () => {
     {
       name: 'Student Options',
       icon: 'BsTicket',
-      access: '1',
+      access:finaloptions[0],
       children: [
         {
           name: 'View Services',
@@ -120,6 +132,12 @@ const Sidebar = () => {
       icon: 'BsTicket',
       access: '1',
       children: [
+        {
+          name: 'Logout',
+          slug: '/',
+          access: '1',
+        },
+
       ],
     },
     
@@ -179,6 +197,7 @@ const Sidebar = () => {
         </div>
       </div>
       <div>
+        
         
       </div>
     </div>
